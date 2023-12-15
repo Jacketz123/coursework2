@@ -31,6 +31,19 @@ pipeline
                     }
                 }
             }
+        }       
+        stage('Push Image to DockerHub')
+        {
+            steps
+            {
+                script
+                {
+                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhubpwd')]) {
+                    sh 'docker login -u jacketz123 -p ${dockerhubpwd}'
+}
+                    sh 'docker push jacketz123/coursework2:latest'
+                }
+            }
         }
     }
 }
