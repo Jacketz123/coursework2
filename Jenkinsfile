@@ -45,5 +45,15 @@ pipeline
                 }
             }
         }
+        stage('Deploy to Kubernetes')
+        {
+            steps
+            {
+                sshagent(['Production_Key'])
+                {
+                    sh "ssh -t -t ubuntu@ip-172-31-55-121 -o StrictHostKeyChecking=no \'kubectl set image deployment/coursework2 coursework2=jacketz123/coursework2:latest'"
+                }
+            }
+        }
     }
 }
